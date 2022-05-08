@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>geiger</name>
+	<comment />
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>
+			<triggers>clean,full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>
+			<triggers>full,incremental,</triggers>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.cdt.core.cnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
+		<nature>fr.ac6.mcu.ide.core.MCUProjectNature</nature>
+	</natures>
+	<linkedResources>
+		
+	<link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Utils/ble_list.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/utils/ble_list.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_gap_aci.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gap_aci.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_gatt_aci.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_gatt_aci.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_hal_aci.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_hal_aci.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_l2cap_aci.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_l2cap_aci.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_updater_aci.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_updater_aci.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/Controller/bluenrg_utils_small.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/controller/bluenrg_utils_small.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/HCI_TL/Basic/hci_tl.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/HCI_TL/Basic/hci_le.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/hci_le.c</location>
+		</link></linkedResources>
+</projectDescription>
