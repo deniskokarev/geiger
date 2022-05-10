@@ -37,7 +37,7 @@
 
 /* Defines ------------------------------------------------------------------*/
 /* STMicroelectronics.X-CUBE-BLE1.6.2.3 */
-#define BEACON
+#define SENSOR_DEMO_BS
 #define HCI_TL
 #define HCI_TL_INTERFACE
 
