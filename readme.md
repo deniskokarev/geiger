@@ -1,39 +1,38 @@
-﻿
-## <b>Beacon Application Description</b>
 
-This example shows how to implement an Eddystone Beacon device.
-The communication is done using an STM32 Nucleo board, equipped with an ST's 
-BlueNRG-M0/BlueNRG-MS expansion board, and a Smartphone with BLE.
+## <b>SensorDemo_BLESensor-App Application Description</b>
+  
+This application shows how to implement proprietary BLE profiles.
+The communication is done using a STM32 Nucleo board and a Smartphone with BTLE.
 
 Example Description:
 
-An Eddystone Beacon is a smart Bluetooth Low Energy device that transmits 
-a small data payload at regular intervals using Bluetooth advertising packets.
+This application shows how to implement a peripheral device tailored for 
+interacting with the "ST BLE Sensor" app for Android/iOS devices.
 
-Beacons are used to mark important places and objects. Typically, a beacon 
-is visible to a user's device from a range of a few meters, allowing for highly 
-context-sensitive use cases. 
+The "ST BLE Sensor" app is freely available on both GooglePlay and iTunes
+  - iTunes: https://itunes.apple.com/us/app/st-bluems/id993670214
+  - GooglePlay: https://play.google.com/store/apps/details?id=com.st.bluems
+The source code of the "ST BLE Sensor" app is available on GitHub at:
+  - iOS: https://github.com/STMicroelectronics-CentralLabs/STBlueMS_iOS
+  - Android: https://github.com/STMicroelectronics-CentralLabs/STBlueMS_Android
 
-Eddystone is an open beacon format from Google that works with Android and iOS. 
-Specifications can be found at https://developers.google.com/beacons/
+@note: NO SUPPORT WILL BE PROVIDED TO YOU BY STMICROELECTRONICS FOR ANY OF THE
+ANDROID/iOS app INCLUDED IN OR REFERENCED BY THIS PACKAGE.
 
-Two different kinds of devices can be selected by defining/undefining the 
-#define EDDYSTONE_BEACON_TYPE EDDYSTONE_URL_BEACON_TYPE in file app_bluenrg_ms.c:
-- UID: a UID beacon broadcasts a unique ID that provides proximity and general 
-  location information.
-- URL: a URL beacon broadcasts a packet containing an URL code usable by compatible 
-  applications.
+After establishing the connection between the STM32 board and the smartphone:
+ -  the temperature and the pressure emulated values are sent by the STM32 board to 
+    the mobile device and are shown in the ENVIRONMENTAL tab;
+ -  the emulated sensor fusion data sent by the STM32 board to the mobile device 
+    reflects into the cube rotation showed in the app's MEMS SENSOR FUSION tab
+ -  the plot of the emulated data (temperature, pressure, sensor fusion data, 
+    accelerometer, gyroscope and magnetometer) sent by the board are shown in the 
+	PLOT DATA tab;
+ -  in the RSSI & Battery tab the RSSI value is shown.
+According to the value of the #define USE_BUTTON in file app_bluenrg_ms.c, the 
+environmental and the motion data can be sent automatically (with 1 sec period) 
+or when the User Button is pressed.
 
-To locate the beacon, it is necessary to have a scanner application running
-on a BLE-capable smartphone, such as one of the following ones for Android:
-- Physical Web, https://play.google.com/store/apps/details?id=physical_web.org.physicalweb
-- iBeacon & Eddystone Scanner, https://play.google.com/store/apps/details?id=de.flurp.beaconscanner.app
-- Beacon Radar, https://play.google.com/store/apps/details?id=net.beaconradar
-
-An alternative is to use a 'Physical Web' compatible browser like Google Chrome (version >=44).
-
-NO SUPPORT WILL BE PROVIDED TO YOU BY STMICROELECTRONICS FOR ANY OF THE
-ANDROID .apk FILES INCLUDED IN OR REFERENCED BY THIS PACKAGE.
+The communication is done using a vendor specific profile.
 
 Known limitations:
 
@@ -45,19 +44,19 @@ Known limitations:
 
 ### <b>Keywords</b>
 
-BLE, Beacon, Eddystone Beacon, SPI, BlueNRG-M0, BlueNRG-MS
+BLE, Peripheral, SPI, BlueNRG-M0, BlueNRG-MS
 
 ### <b>Directory contents</b>
 
- - app_bluenrg_ms.c       Beacon initialization and applicative code
+ - app_bluenrg_ms.c       SensorDemo_BLESensor-App initialization and applicative code
  
- - eddystone_beacon.c     Set beacon services 
+ - gatt_db.c              Functions for building GATT DB and handling GATT events
  
  - hci_tl_interface.c     Interface to the BlueNRG HCI Transport Layer 
  
  - main.c                 Main program body
- 
- - sensor_service.c       Module for processing ACI events
+  
+ - sensor.c               Sensor init and state machine
  
  - stm32**xx_hal_msp.c    Source code for MSP Initialization and de-Initialization
 
@@ -68,6 +67,8 @@ BLE, Beacon, Eddystone Beacon, SPI, BlueNRG-M0, BlueNRG-MS
  - stm32**xx_nucleo_bus.c Source file for the BSP BUS IO driver
  
  - system_stm32**xx.c     CMSIS Cortex-Mx Device Peripheral Access Layer System Source File
+
+ - target_platform.c      Get information on the target device memory
   
 ### <b>Hardware and Software environment</b>
 
