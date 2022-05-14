@@ -52,11 +52,11 @@ extern "C" {
 /*---------- Maximum Connection Length (for a number N, Time = N x 0.625 msec) -----------*/
 #define CONN_L2      2000
 /*---------- Advertising Type -----------*/
-#define ADV_DATA_TYPE      ADV_NONCONN_IND
+#define ADV_DATA_TYPE      ADV_IND
 /*---------- Minimum Advertising Interval (for a number N, Time = N x 0.625 msec) -----------*/
-#define ADV_INTERV_MIN      1600
+#define ADV_INTERV_MIN      2048
 /*---------- Maximum Advertising Interval (for a number N, Time = N x 0.625 msec) -----------*/
-#define ADV_INTERV_MAX      1600
+#define ADV_INTERV_MAX      4096
 /*---------- Minimum Connection Event Interval (for a number N, Time = N x 1.25 msec) -----------*/
 #define L2CAP_INTERV_MIN      9
 /*---------- Maximum Connection Event Interval (for a number N, Time = N x 1.25 msec) -----------*/

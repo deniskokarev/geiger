@@ -62,5 +62,9 @@
 			<name>BlueNRG-MS/Wireless/BlueNRG-MS/HCI_TL/Basic/hci_le.c</name>
 			<type>1</type>
 			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/hci_le.c</location>
+		</link><link>
+			<name>BlueNRG-MS/Wireless/BlueNRG-MS/HCI_TL/Template/hci_le.c</name>
+			<type>1</type>
+			<location>PARENT-2-PROJECT_LOC/Middlewares/ST/BlueNRG-MS/hci/hci_le.c</location>
 		</link></linkedResources>
 </projectDescription>

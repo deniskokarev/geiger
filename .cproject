@@ -84,8 +84,8 @@
                   <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/utils" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/includes" />
-                  <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" />
-                </option>
+                  
+                <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" /></option>
                 								
                 <option id="gnu.c.compiler.option.preprocessor.def.symbols.590834997" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
                   <listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
@@ -117,8 +117,8 @@
                   <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/utils" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/includes" />
-                  <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" />
-                </option>
+                  
+                <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" /></option>
                 								
                 <option id="gnu.cpp.compiler.option.preprocessor.def.661347031" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" useByScannerDiscovery="false" valueType="definedSymbols">
                   <listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
@@ -296,8 +296,8 @@
                   <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/utils" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/includes" />
-                  <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" />
-                </option>
+                  
+                <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" /></option>
                 								
                 <option id="gnu.c.compiler.option.preprocessor.def.symbols.590834997" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
                   <listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
@@ -329,8 +329,8 @@
                   <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/utils" />
                   <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/includes" />
-                  <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" />
-                </option>
+                  
+                <listOptionValue builtIn="false" value="../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" /></option>
                 								
                 <option id="gnu.cpp.compiler.option.preprocessor.def.symbols.1623470286" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def.symbols" useByScannerDiscovery="false" valueType="definedSymbols">
                   <listOptionValue builtIn="false" value="USE_HAL_DRIVER" />
