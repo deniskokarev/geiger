@@ -173,7 +173,7 @@ static void MX_TIM4_Init(void)
   htim4.Instance = TIM4;
   htim4.Init.Prescaler = 42000-1;
   htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim4.Init.Period = 2000-1;
+  htim4.Init.Period = 2-1;
   htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim4) != HAL_OK)
@@ -244,18 +244,17 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-static uint32_t time_since_boot = 0;
+static uint64_t time_since_boot_ms = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim4) {
-        time_since_boot++;
-        printf("Time value: %d\r\n", time_since_boot);
+        time_since_boot_ms++;
     }
 }
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == GPIO_PIN_9) {
-        printf("Tick at time: %d\r\n", time_since_boot);
+        printf("Tick at time: %lld ms\r\n", time_since_boot_ms);
     }
 }
 /* USER CODE END 4 */
