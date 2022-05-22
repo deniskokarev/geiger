@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "app_bluenrg_ms.h"
+#include "ring_buffer.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -44,6 +45,16 @@
 TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
+uint64_t time_since_boot_ms = 0;
+
+// Clicks Per Minute will be based on 31 last values
+#define RB_SZ 32
+struct tagRB {
+    RING_BUFFER rb;
+    RB_NUM_T ring_buffer_data[RB_SZ];
+} RB;
+
+RING_BUFFER *ring_buffer = (RING_BUFFER*)&RB;
 
 /* USER CODE END PV */
 
@@ -92,6 +103,7 @@ int main(void)
   MX_BlueNRG_MS_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim4);
+  rb_init(ring_buffer, RB_SZ);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -244,8 +256,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-static uint64_t time_since_boot_ms = 0;
-
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim4) {
         time_since_boot_ms++;
@@ -254,7 +264,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == GPIO_PIN_9) {
-        printf("Tick at time: %lld ms\r\n", time_since_boot_ms);
+        uint64_t tnow = time_since_boot_ms;
+        rb_put(ring_buffer, tnow);
+        int cnt = rb_count(ring_buffer);
+        uint64_t t_first = rb_first(ring_buffer);
+        uint64_t tdiff = tnow - t_first;
+        if (tdiff > 0) {
+            int cpm = cnt * 1000ULL * 60 / tdiff;
+            printf("Tick at time: %lld ms, t_first = %lld, cnt = %d\r\n", tnow, t_first, cnt);
+            printf("CPM: %d\r\n", cpm);
+        }
     }
 }
 /* USER CODE END 4 */
