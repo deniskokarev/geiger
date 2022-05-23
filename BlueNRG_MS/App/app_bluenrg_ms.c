@@ -64,6 +64,8 @@ static volatile uint8_t user_button_init_state = 1;
 static volatile uint8_t user_button_pressed = 0;
 
 /* USER CODE BEGIN PV */
+// our Clicks Per Minute metric
+extern float cpm;
 
 /* USER CODE END PV */
 
@@ -282,7 +284,7 @@ static void User_Process(void)
 
       /* Update emulated Environmental data */
       Set_Random_Environmental_Values(&data_t, &data_p);
-      BlueMS_Environmental_Update((int32_t)(data_p *100), (int16_t)(data_t * 10));
+      BlueMS_Environmental_Update((int32_t)(cpm*100), (int16_t)(data_t * 10));
 
       /* Update emulated Acceleration, Gyroscope and Sensor Fusion data */
       Set_Random_Motion_Values(counter);

@@ -47,6 +47,9 @@ TIM_HandleTypeDef htim4;
 /* USER CODE BEGIN PV */
 uint64_t time_since_boot_ms = 0;
 
+// our Clicks Per Minute metric
+float cpm = 0;
+
 // Clicks Per Minute will be based on 31 last values
 #define RB_SZ 32
 struct tagRB {
@@ -270,9 +273,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
         uint64_t t_first = rb_first(ring_buffer);
         uint64_t tdiff = tnow - t_first;
         if (tdiff > 0) {
-            int cpm = cnt * 1000ULL * 60 / tdiff;
+            cpm = cnt * 1000.0 * 60 / tdiff;
             printf("Tick at time: %lld ms, t_first = %lld, cnt = %d\r\n", tnow, t_first, cnt);
-            printf("CPM: %d\r\n", cpm);
+            printf("CPM: %.02f\r\n", cpm);
         }
     }
 }
