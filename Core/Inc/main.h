@@ -34,7 +34,6 @@ extern "C" {
 #include "stm32f4xx_nucleo.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -52,6 +51,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -67,10 +68,17 @@ void Error_Handler(void);
 #define GEIGER_EXTI_Pin GPIO_PIN_9
 #define GEIGER_EXTI_GPIO_Port GPIOA
 #define GEIGER_EXTI_EXTI_IRQn EXTI9_5_IRQn
+#define GEIGER_EXTI_NEW_Pin GPIO_PIN_10
+#define GEIGER_EXTI_NEW_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
+#define TIM3_CH1_PWM_Pin GPIO_PIN_4
+#define TIM3_CH1_PWM_GPIO_Port GPIOB
+#define GPIO_VCTL_Pin GPIO_PIN_5
+#define GPIO_VCTL_GPIO_Port GPIOB
+#define GPIO_VCTL_EXTI_IRQn EXTI9_5_IRQn
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
