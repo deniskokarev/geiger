@@ -76,9 +76,8 @@ void Error_Handler(void);
 #define TCK_GPIO_Port GPIOA
 #define TIM3_CH1_PWM_Pin GPIO_PIN_4
 #define TIM3_CH1_PWM_GPIO_Port GPIOB
-#define GPIO_VCTL_Pin GPIO_PIN_5
-#define GPIO_VCTL_GPIO_Port GPIOB
-#define GPIO_VCTL_EXTI_IRQn EXTI9_5_IRQn
+#define GPIO_CTL_Pin GPIO_PIN_5
+#define GPIO_CTL_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
