@@ -61,6 +61,7 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define BSP_BUTTON_EXTI_IRQn EXTI15_10_IRQn
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
 #define USART_RX_Pin GPIO_PIN_3
@@ -70,6 +71,7 @@ void Error_Handler(void);
 #define GEIGER_EXTI_EXTI_IRQn EXTI9_5_IRQn
 #define GEIGER_EXTI_NEW_Pin GPIO_PIN_10
 #define GEIGER_EXTI_NEW_GPIO_Port GPIOA
+#define GEIGER_EXTI_NEW_EXTI_IRQn EXTI15_10_IRQn
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14

@@ -275,6 +275,9 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
 
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */
@@ -290,6 +293,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
             printf("Tick at time: %lld ms, t_first = %lld, cnt = %d\r\n", tnow, t_first, cnt);
             printf("CPM: %.02f\r\n", cpm);
         }
+    } else if (GPIO_Pin == GEIGER_EXTI_NEW_Pin) {
+        uint64_t tnow = time_since_boot_ms;
+        printf("Tick new at time: %lld ms\r\n", tnow);
     }
 }
 /* USER CODE END 4 */
