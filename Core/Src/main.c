@@ -113,13 +113,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   rb_init(ring_buffer, RB_SZ);
-    //HAL_TIM_Base_Start_IT(&htim2);
-    //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-    //HAL_TIM_Base_Start(&htim2);
-    //HAL_TIM_OnePulse_Init(&htim2, TIM_CHANNEL_3);
-
   //set_voltage_generator_ctl_hi();
-    //HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -353,10 +347,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     } else if (GPIO_Pin == GEIGER_EXTI_NEW_Pin) {
         uint64_t tnow = time_since_boot_ms;
         printf("Tick new at time: %lld ms\r\n", tnow);
-        MX_TIM2_Init();
+        // TIM2CH3 is configured in 0.1 sec one-pulse. Making that one pulse
+        HAL_TIM_PWM_Init(&htim2);
         HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
-        //HAL_TIM_OnePulse_Start(&htim2, TIM_CHANNEL_3);
-        //HAL_TIM_OnePulse_Start_IT(&htim2, TIM_CHANNEL_3);
     }
 }
 
