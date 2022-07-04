@@ -7,7 +7,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.geigercounter"
+        applicationId "dkv.geigercounter"
         minSdk 30
         targetSdk 31
         versionCode 1
@@ -21,6 +21,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        dataBinding true
+    }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -30,4 +36,8 @@ dependencies {
     implementation 'androidx.percentlayout:percentlayout:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation project(path: ':BlueSTSDK')
+    implementation project(path: ':BlueSTSDK')
+    implementation 'androidx.wear:wear:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
