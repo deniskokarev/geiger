@@ -12,9 +12,9 @@ The hardware is in the Nucleo (Arduino) shield form-factor
 
 Exporting the readings over Blutooth to a Wearable Android client.
 
-[Hardware](./hardware) DipTrace schematics and layout for high-voltage and sensor shield
-[Firmware](./firmware) CubeMX + CLion project
-[Wearable Client](./client/android) Android Studio project for wearable client
+- [Hardware](./hardware) DipTrace schematics and layout for high-voltage and sensor shield
+- [Firmware](./firmware) CubeMX + CLion project
+- [Wearable Client](./client/android) Android Studio project for wearable client
 
 ![Complete Device](./CompleteDevice.jpg)
 
