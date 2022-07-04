@@ -1,0 +1,3 @@
+[submodule "client/android/BlueSTSDK_Android"]
+	path = client/android/BlueSTSDK_Android
+	url = git@github.com:STMicroelectronics/BlueSTSDK_Android.git
