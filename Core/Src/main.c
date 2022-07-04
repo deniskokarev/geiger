@@ -42,11 +42,18 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
-uint64_t time_since_boot_ms = 0;
+// updated from htim1 interrupt handler, which triggers every second
+uint64_t seconds_since_boot = 0;
+
+uint64_t time_since_boot_ms() {
+    // htim1 timer is counting in 1/10_000 secs
+    return seconds_since_boot * 1000 + __HAL_TIM_GetCounter(&htim1) / 10;
+}
 
 // our Clicks Per Minute metric
 float cpm = 0;
@@ -67,16 +74,13 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-// temporarily "forcing" ctl signal to hi
-//inline void set_voltage_generator_ctl_hi() {
-//    HAL_GPIO_WritePin(GPIOB, GPIO_CTL_Pin, GPIO_PIN_SET);
-//}
 /* USER CODE END 0 */
 
 /**
@@ -109,11 +113,15 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM3_Init();
   MX_TIM2_Init();
+  MX_TIM1_Init();
   MX_BlueNRG_MS_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   rb_init(ring_buffer, RB_SZ);
-  //set_voltage_generator_ctl_hi();
+  // htim1 is our system time counter, interrupts every second and counts with 1/10_000 sec discretization
+  HAL_TIM_OC_MspInit(&htim1);
+  HAL_TIM_Base_Start_IT(&htim1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,8 +132,6 @@ int main(void)
 
   MX_BlueNRG_MS_Process();
     /* USER CODE BEGIN 3 */
-      //uint32_t tval = __HAL_TIM_GET_COUNTER(&htim4);
-      //printf("Timer3 value: %d\r\n", tval);
   }
   /* USER CODE END 3 */
 }
@@ -172,6 +178,70 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 8399;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 9999;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_OC_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+
 }
 
 /**
@@ -333,8 +403,8 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
-    if (GPIO_Pin == GPIO_PIN_9) {
-        uint64_t tnow = time_since_boot_ms;
+    if (GPIO_Pin == GEIGER_EXTI_NEW_Pin) {
+        uint64_t tnow = time_since_boot_ms();
         rb_put(ring_buffer, tnow);
         int cnt = rb_count(ring_buffer);
         uint64_t t_first = rb_first(ring_buffer);
@@ -344,18 +414,16 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
             printf("Tick at time: %lld ms, t_first = %lld, cnt = %d\r\n", tnow, t_first, cnt);
             printf("CPM: %.02f\r\n", cpm);
         }
-    } else if (GPIO_Pin == GEIGER_EXTI_NEW_Pin) {
-        uint64_t tnow = time_since_boot_ms;
-        printf("Tick new at time: %lld ms\r\n", tnow);
-        // TIM2CH3 is configured in 0.1 sec one-pulse. Making that one pulse
+        // TIM2CH3 is configured in 0.1 sec one-pulse to LED indicator. Making that one flash
         HAL_TIM_PWM_Init(&htim2);
         HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
     }
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM2) {
-        printf("Timer 2 period end\r\n");
+    if (htim->Instance == TIM1) {
+        // our system time
+        seconds_since_boot++;
     }
 }
 
