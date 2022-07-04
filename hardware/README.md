@@ -4,7 +4,10 @@ The high-voltage supply is based on ~4kHz PWM signal coming from MC. PWM signal 
 
 It makes about ~3 PWM impulses per second sustaining ~400V with minimal effort.
 
-DipTrace schematic and board layout attached.
+DipTrace was used to compose schematic and board layout.
+
+There are Eagle schematics and board files attached as well.
+
 
 Also, LTSpice simulation file with opamp feedback loop calculations.
 
