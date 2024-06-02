@@ -3,8 +3,8 @@
         compatible = "pwm-leds";
         status = "okay";
         boost {
-            // 10us means 100kHz
-            pwms = <&pwm3 1 PWM_USEC(10) PWM_POLARITY_NORMAL>;
+            // 5us (200kHz), is a resonant freq for RFS1317-106KL coil
+            pwms = <&pwm3 1 PWM_USEC(5) PWM_POLARITY_NORMAL>;
         };
     };
     boost_drv_gpios {

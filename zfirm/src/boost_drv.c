@@ -6,8 +6,6 @@
 #include <zephyr/drivers/gpio.h>
 #include "log.h"
 
-#define PERIOD (PWM_SEC(1U) / 100000)
-
 static const struct pwm_dt_spec boost_pwm = PWM_DT_SPEC_GET(DT_PATH(boost_drv_pwms, boost));
 static const struct gpio_dt_spec boost_on = GPIO_DT_SPEC_GET(DT_PATH(boost_drv_gpios, boost_on), gpios);
 
@@ -26,17 +24,17 @@ bool boost_drv_init() {
 }
 
 bool boost_drv_on() {
-	unsigned t = PERIOD;
-	unsigned p = t * 1 / 10;
+	unsigned t = boost_pwm.period;
+	unsigned p = t * 1 / 2;
 	int rc = pwm_set_dt(&boost_pwm, t, p);
 	if (rc) {
-		LOG_ERR("cannot set pwm");
+		LOG_ERR("cannot set pwm, rc=%d", rc);
 		return false;
 	}
 	LOG_DBG("pwm set");
 	rc = gpio_pin_configure_dt(&boost_on, GPIO_OUTPUT_ACTIVE);
 	if (rc) {
-		LOG_ERR("cannot set boost on");
+		LOG_ERR("cannot set boost on, rc=%d", rc);
 		return false;
 	}
 	LOG_DBG("boost on set");
@@ -49,13 +47,13 @@ bool boost_drv_off() {
 	}
 	int rc = gpio_pin_configure_dt(&boost_on, GPIO_OUTPUT_INACTIVE);
 	if (rc) {
-		LOG_ERR("cannot unset boost");
+		LOG_ERR("cannot unset boost, rc=%d", rc);
 		return false;
 	}
 	LOG_DBG("boost unset");
 	rc = pwm_set_dt(&boost_pwm, 0, 0);
 	if (rc) {
-		LOG_ERR("cannot turn pwm off");
+		LOG_ERR("cannot turn pwm off, rc=%d", rc);
 		return false;
 	}
 	LOG_DBG("pwm unset");
