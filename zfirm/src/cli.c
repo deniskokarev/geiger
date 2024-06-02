@@ -1,10 +1,10 @@
 #include <zephyr/shell/shell.h>
 #include "boost_drv.h"
 
-static int cmd_boost(const struct shell *shell, size_t argc, char **argv, void *data) {
+static int cmd_boost(const struct shell *sh, size_t argc, char **argv, void *data) {
 	int on_off = (intptr_t) data;
 	bool status = on_off ? boost_drv_on() : boost_drv_off();
-	shell_print(shell, "boost = %s, status = %s", on_off ? "on" : "off", status ? "success" : "failure");
+	shell_info(sh, "boost = %s, status = %s", on_off ? "on" : "off", status ? "success" : "failure");
 	return status ? 0 : -ENOEXEC;
 }
 

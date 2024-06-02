@@ -17,9 +17,6 @@ int main(void) {
 		return -2;
 	}
 	LOG_INF("Settings subsys initialization: OK");
-	while (1) {
-		LOG_INF("Hello World! %s", CONFIG_ARCH);
-		k_sleep(K_MSEC(10000));
-	}
+	// ok to exit main, the shell thread keeps running
 	return 0;
 }

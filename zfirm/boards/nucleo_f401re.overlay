@@ -1,10 +1,16 @@
 / {
-    pwms {
+    boost_drv_pwms {
         compatible = "pwm-leds";
         status = "okay";
         boost {
-            // 10us gives us upto 100kHz
+            // 10us means 100kHz
             pwms = <&pwm3 1 PWM_USEC(10) PWM_POLARITY_NORMAL>;
+        };
+    };
+    boost_drv_gpios {
+        compatible = "gpio-leds";
+        boost_on {
+            gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
         };
     };
 };
